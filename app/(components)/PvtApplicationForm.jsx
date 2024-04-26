@@ -313,7 +313,7 @@ export default function PvtApplicationForm() {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
                       setCertOfInc(res[0].url);
-                      alert("Upload Completed");
+                      //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {
                       // Do something with the error.
@@ -349,7 +349,7 @@ export default function PvtApplicationForm() {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
                       setCr14(res[0].url);
-                      alert("Upload Completed");
+                      //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {
                       // Do something with the error.
@@ -385,7 +385,7 @@ export default function PvtApplicationForm() {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
                       setCr6(res[0].url);
-                      alert("Upload Completed");
+                      //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {
                       // Do something with the error.
@@ -421,7 +421,7 @@ export default function PvtApplicationForm() {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
                       setMaa(res[0].url);
-                      alert("Upload Completed");
+                      //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {
                       // Do something with the error.
@@ -457,7 +457,7 @@ export default function PvtApplicationForm() {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
                       setIds(res[0].url);
-                      alert("Upload Completed");
+                      //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {
                       // Do something with the error.
@@ -492,7 +492,7 @@ export default function PvtApplicationForm() {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
                       setProofRes(res[0].url);
-                      alert("Upload Completed");
+                      //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {
                       // Do something with the error.
@@ -528,7 +528,7 @@ export default function PvtApplicationForm() {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
                       setTaxClearance(res[0].url);
-                      alert("Upload Completed");
+                      //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {
                       // Do something with the error.
