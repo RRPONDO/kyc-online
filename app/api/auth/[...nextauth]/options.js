@@ -65,7 +65,7 @@ export const options = {
                             console.log("Good Password");
                             delete foundUser.password;
 
-                            if(foundUser.email == "ronald@zuvapetroleum.co.zw"){
+                            if(foundUser.email == "ronaldp@zuvapetroleum.co.zw"){
                                 foundUser["role"] = "admin1";
                             }else if(foundUser.email == "munyaradzic@zuvapetroleum.co.zw"){
                                 foundUser["role"] = "admin2";
