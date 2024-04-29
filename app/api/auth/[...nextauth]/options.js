@@ -85,9 +85,9 @@ export const options = {
             },
         }),
     ],
-    // pages: {
-    //     signIn: "/Login",
-    //   },
+    pages: { 
+        signIn: "/Login",
+      },
       secret: process.env.NEXTAUTH_SECRET,
     callbacks:{
         async jwt({token, user}){

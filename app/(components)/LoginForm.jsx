@@ -14,9 +14,10 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(email);
 
     try {
-      const res = await signIn("Credentials", {
+      const res = await signIn("credentials", {
         email,
         password,
         redirect: false,
@@ -24,9 +25,11 @@ const LoginForm = () => {
       if (res?.error) {
         setError("Invalid Credentials");
         return;
-      }
+      }      
+      router.push("/");
+      router.refresh();
 
-      router.replace("/");
+      // router.replace("/");
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +52,7 @@ const LoginForm = () => {
             </svg>
             <input
               type="text"
-              className="grow"
+              //className="grow"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -69,7 +72,7 @@ const LoginForm = () => {
             </svg>
             <input
               type="password"
-              className="grow"
+              //className="grow"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
