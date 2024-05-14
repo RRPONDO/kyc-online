@@ -33,6 +33,8 @@ export async function POST(req){
     proofOfRes,
     taxClearance,
 
+    benOwnership,
+
     status,
     status1,
         } = await req.json();
@@ -85,6 +87,8 @@ export async function POST(req){
             ids,
             proofOfRes,
             taxClearance,
+
+            benOwnership,
         
             status,
             status1,

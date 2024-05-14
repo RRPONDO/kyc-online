@@ -8,7 +8,7 @@ import Link from "next/link";
 export default async function adtwo() {
   const session = await getServerSession(options);
 
-  const applications = await Application.find({ status: "AP_APPROVED" })
+  const applications = await Application.find({ status: "Awaiting_Compliance" } )
     .lean()
     .exec();
 

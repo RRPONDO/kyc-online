@@ -1,5 +1,6 @@
 import AuthProvider from './(components)/AuthProvider';
 import Nav from './(components)/Nav';
+import Footer from './(components)/Footer';
 import './globals.css';
 
 
@@ -12,12 +13,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <AuthProvider>
-      <body className='bg-gray-100'>
-        <Nav/>        
-        <div className='m-2 min-h-screen'>
+      <body className='bg-green-100'>
+             
+        <div className='min-h-screen'>
+        <Nav/>  
         {children}
+        {/* <Footer/> */}
         </div>        
-        </body>
+      </body>
         </AuthProvider>
     </html>
   )

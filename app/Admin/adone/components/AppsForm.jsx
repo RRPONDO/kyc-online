@@ -47,8 +47,8 @@ const AppsForm = ({ id }) => {
             onChange={(e) => setStatus(e.target.value)}
           >
             <option value="option1">Review & update decision:</option>
-            <option value="AP_APPROVED">Approve</option>
-            <option value="AP_REJECTED">Reject</option>
+            <option value="Awaiting_Compliance">Approve</option>
+            <option value="REJECTED">Reject</option>
           </select>
 
           <button className="btn btn-success items-center w-[100px] text-stone-100">

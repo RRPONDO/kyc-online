@@ -33,6 +33,9 @@ const applicationSchema = new Schema(
     proofOfRes: String,
     taxClearance: String,
 
+    benOwnership: String,
+    resolutionAuth: String,
+
     status: String,
     status1: String,
   },

@@ -41,29 +41,39 @@ const Home = async () => {
         </div>
 
         <div className="flex flex-col border border-solid mt-3 p-3 bg-gray-200">
-          <h2 className="">Complete registration</h2>
+          <h2 className="text-red">Complete registration</h2>
           <div className="ml-5">
-            <div>
+            <div className="mb-3 mt-3">
               <Link
                 href="/Client/P1Application"
                 className="underline text-success font-normal"
               >
-                Private Ltd
+                Private Limited Company
               </Link>
             </div>
-            <div>
+            <div className="mb-3">
+              <Link href="/Client/P2Application" className="text-success underline font-normal">
+                Public Limited Company
+              </Link>
+            </div>
+            <div className="mb-3">
               <Link href="#" className="text-success underline font-normal">
-                Public Ltd
+              Private Business Corporation
               </Link>
             </div>
-            <div>
-              <Link href="#" className="text-success underline font-normal">
-                NGO
-              </Link>
-            </div>
-            <div>
+            <div className="mb-3">
               <Link href="#" className="text-success underline font-normal">
                 Parastatal
+              </Link>
+            </div>
+            <div className="mb-3">
+              <Link href="#" className="text-success underline font-normal">
+                Partnership
+              </Link>
+            </div>
+            <div className="mb-3">
+              <Link href="/Client/P3Application" className="text-success underline font-normal">
+                Individual
               </Link>
             </div>
           </div>
@@ -307,6 +317,16 @@ const Home = async () => {
                     Tax Clearance
                   </Link>
                 </div>
+
+                <div>
+                  <Link
+                    href={applicantDetails.benOwnership}
+                    target="_blank"
+                    className="text-blue-400 underline font-normal"
+                  >
+                    Beneficiary Ownership
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -321,7 +341,33 @@ const Home = async () => {
                 <div className="skeleton h-4 w-32"></div>
               </div>
             </div>
-            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-[400px] w-full">
+            <div className="carousel w-full">
+  <div id="slide1" className="carousel-item relative w-full">
+    <img src="trucks.jpg" className="w-full h-[400px]" />
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide4" className="btn btn-circle">❮</a> 
+      <a href="#slide2" className="btn btn-circle">❯</a>
+    </div>
+  </div> 
+  <div id="slide2" className="carousel-item relative w-full">
+    <img src="lubes.jpg" className="w-full h-[400px]" />
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide1" className="btn btn-circle">❮</a> 
+      <a href="#slide3" className="btn btn-circle">❯</a>
+    </div>
+  </div> 
+  <div id="slide3" className="carousel-item relative w-full">
+    <img src="ceo.jpg" className="w-full h-[400px]" />
+    <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+      <a href="#slide2" className="btn btn-circle">❮</a> 
+      <a href="#slide4" className="btn btn-circle">❯</a>
+    </div>
+  </div> 
+  
+</div>
+              {/* <p>If you have completed registration and you're on this page, click refresh page to check your application status.</p> */}
+            </div>
           </div>
         )}
       </div>

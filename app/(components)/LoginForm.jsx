@@ -37,6 +37,7 @@ const LoginForm = () => {
 
   return (
     <>
+    <div className="mb-20">
       <form onSubmit={handleSubmit} method="POST">
         <div className="flex flex-col gap-3 m-5">
           <h1>Login:</h1>
@@ -90,6 +91,7 @@ const LoginForm = () => {
           {error}
         </div>
       )}
+      </div>
     </>
   );
 };

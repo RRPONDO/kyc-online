@@ -45,13 +45,15 @@ export default function PvtApplicationForm() {
   const [proofOfRes, setProofRes] = useState("");
   const [taxClearance, setTaxClearance] = useState("");
 
+  const[benOwnership,setBenOwnership] = useState("");
+
   const [error, setError] = useState("");
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!regName || !regAddr) {
+    if (!regName || !regAddr || !counterparty || !bankName) {
       setError("All fields are required.");
     }
 
@@ -94,6 +96,9 @@ export default function PvtApplicationForm() {
           ids,
           proofOfRes,
           taxClearance,
+
+          benOwnership,
+
           status,
         }),
       });
@@ -138,10 +143,11 @@ export default function PvtApplicationForm() {
                 <select
                   onChange={(e) => setCounterparty(e.target.value)}
                   className="select select-bordered w-[92%]"
+                  required
                 >
-                  <option disabled selected>
+                  {/* <option disabled selected>
                     Type of Counterparty:
-                  </option>
+                  </option> */}
                   <option value="Supplier">Supplier</option>
                   <option value="Customer">Customer</option>
                 </select>
@@ -171,28 +177,41 @@ export default function PvtApplicationForm() {
             <div className="grid flex-grow card bg-base-300 rounded-box">
               <div className="flex flex-col gap-3 my-5 mx-5">
                 <h1>Customer or Supplier Information:</h1>
+                <label for="regName">Registered Name:</label>
                 <input
                   onChange={(e) => setRegName(e.target.value)}
                   type="text"
+                  id="regName"
                   placeholder="Registered Name"
                   className="input input-bordered input-sm w-full"
                 />
+                <label for="regDate">Registered Date:</label>
                 <input
                   onChange={(e) => {
                     const date = new Date(e.target.value);
                     setRegDate(date.toISOString());
                   }}
                   type="date"
+                  id="regDate"
                   placeholder="Registered Date"
                   className="input input-bordered input-sm w-full"
                 />
+
                 <input
                   onChange={(e) => setRegId(e.target.value)}
                   type="text"
                   placeholder="Registration ID"
                   className="input input-bordered input-sm w-full "
                 />
-                <select
+
+                <input
+                  onChange={(e) => setRegCountry(e.target.value)}
+                  type="text"
+                  placeholder="Country of Registration"
+                  className="input input-bordered input-sm w-full "
+                />
+
+                {/* <select
                   onChange={(e) => setRegCountry(e.target.value)}
                   className="select select-bordered w-full"
                 >
@@ -201,8 +220,13 @@ export default function PvtApplicationForm() {
                   </option>
                   <option value="Zimbabwe">Zimbabwe</option>
                   <option value="South Africa">South Africa</option>
+                  <option value="Botswana">Botswana</option>
+                  <option value="Zambia">Zambia</option>
+                  <option value="Malawi">Malawi</option>
+                  <option value="Malawi">USA</option>
                   <option value="UK">UK</option>
-                </select>
+                </select> */}
+
                 <input
                   onChange={(e) => setRegAddress(e.target.value)}
                   type="text"
@@ -248,7 +272,14 @@ export default function PvtApplicationForm() {
                   className="input input-bordered input-sm w-full"
                 />
 
-                <select
+                <input
+                  onChange={(e) => setCountry(e.target.value)}
+                  type="text"
+                  placeholder="Country"
+                  className="input input-bordered input-sm w-full "
+                />
+
+                {/* <select
                   onChange={(e) => setCountry(e.target.value)}
                   className="select select-bordered w-full"
                 >
@@ -258,7 +289,8 @@ export default function PvtApplicationForm() {
                   <option value="Zimbabwe">Zimbabwe</option>
                   <option value="South Africa">South Africa</option>
                   <option value="UK">UK</option>
-                </select>
+                </select> */}
+
                 <input
                   onChange={(e) => setAccNumber(e.target.value)}
                   type="text"
@@ -528,6 +560,42 @@ export default function PvtApplicationForm() {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
                       setTaxClearance(res[0].url);
+                      //alert("Upload Completed");
+                    }}
+                    onUploadError={(error) => {
+                      // Do something with the error.
+                      console.log(`ERROR! ${error.message}`);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+
+            <div>
+              <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
+                <p>Beneficiary Ownership:</p>
+                {benOwnership && (
+                  <button
+                    onClick={() => setBenOwnership("")}
+                    type="button"
+                    className="flex space-x-2  bg-slate-400 rounded-md shadow text-slate-50  py-2 px-4 w-[200px]"
+                  >
+                    <Pencil className="w-5 h-5" />
+                    <span>Change File</span>
+                  </button>
+                )}
+                {benOwnership ? (
+                  <a target="_blank" href={benOwnership}>
+                    <FileText />
+                    <span>View File</span>
+                  </a>
+                ) : (
+                  <UploadButton
+                    endpoint="fileUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log("Files: ", res[0].url);
+                      setBenOwnership(res[0].url);
                       //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {

@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base{
+  body{
+    @apply bg-lime-400;
+  }
   h1{
     @apply font-bold text-3xl;
   }

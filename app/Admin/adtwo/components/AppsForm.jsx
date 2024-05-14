@@ -25,7 +25,7 @@ const AppsForm = ({ id }) => {
         console.log("successful");
         //toast.success("Application successfully submitted");
         //put toast notification for successful register:
-        router.push("/Admin/adone");
+        router.push("/Admin/adtwo");
         router.refresh();
       }
     } catch (error) {
