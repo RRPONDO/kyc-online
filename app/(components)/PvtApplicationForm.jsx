@@ -53,9 +53,16 @@ export default function PvtApplicationForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!regName || !regAddr || !counterparty || !bankName) {
-      setError("All fields are required.");
+
+    if (counterparty === '') {
+      alert('Please select a counterparty type.');
+      return; // Exit function if not selected
     }
+    if (!regName || !regAddr || !bankName) {
+      //setError("All fields are required.");
+      alert('All fields are required');
+    }
+   
 
     try {
       const formattedRegDate = new Date(regDate).toISOString();
@@ -145,9 +152,9 @@ export default function PvtApplicationForm() {
                   className="select select-bordered w-[92%]"
                   required
                 >
-                  {/* <option disabled selected>
+                  <option disabled selected>
                     Type of Counterparty:
-                  </option> */}
+                  </option>
                   <option value="Supplier">Supplier</option>
                   <option value="Customer">Customer</option>
                 </select>
@@ -606,6 +613,14 @@ export default function PvtApplicationForm() {
                 )}
               </div>
             </div>
+          </div>
+
+          <div class="flex items-center mb-4">
+            <input id="terms" type="checkbox" value="" required className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+            <label for="terms" class="flex items-center text-sm font-medium text-gray-900 dark:text-gray-300 ml-2">
+            I agree to the &nbsp;
+            <a href="/Client" target="_blank" class="text-blue-600 underline hover:text-blue-800">Compliance Declaration</a>.
+          </label>
           </div>
 
           <div className="bg-base-300 rounded-box my-3 w-[150px] py-4 px-4">
