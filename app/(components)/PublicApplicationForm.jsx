@@ -59,7 +59,7 @@ export default function PublicApplicationForm() {
       const formattedRegDate = new Date(regDate).toISOString();
       const status = "PENDING_APPROVAL";
       const email = session?.user?.email;
-      const entityType = "private_company";
+      const entityType = "public_company";
 
       const res = await fetch("../api/Application", {
         method: "POST",

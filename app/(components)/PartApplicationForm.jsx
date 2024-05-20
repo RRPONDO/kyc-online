@@ -9,7 +9,7 @@ import { FileText, Pencil, Plus, SquarePlus } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-export default function PvtApplicationForm() {
+export default function PartApplicationForm() {
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -37,7 +37,6 @@ export default function PvtApplicationForm() {
   const [swiftCode, setSwiftCode] = useState("");
   const [iban, setIban] = useState("");
   const [accBen, setAccountBeneficiary] = useState("");
-
   const [certOfInc, setCertOfInc] = useState("");
   const [cr14, setCr14] = useState("");
   const [cr6, setCr6] = useState("");
@@ -59,17 +58,18 @@ export default function PvtApplicationForm() {
       alert('Please select a counterparty type.');
       return; // Exit function if not selected
     }
-
-    if (!regName || !regAddr || !counterparty || !bankName) {
-      alert("All fields are required.");
-      return;
+    
+    if (!regName || !regAddr || !bankName) {
+      //setError("All fields are required.");
+      alert('All fields are required');
     }
+   
 
     try {
       const formattedRegDate = new Date(regDate).toISOString();
       const status = "PENDING_APPROVAL";
       const email = session?.user?.email;
-      const entityType = "individual";
+      const entityType = "partnership";
 
       const res = await fetch("../api/Application", {
         method: "POST",
@@ -115,7 +115,7 @@ export default function PvtApplicationForm() {
         //toast.success("Application successfully submitted");
         //put toast notification for successful register:
         router.refresh();
-        router.push("/ClientMember");
+        router.push("/");
       }
     } catch (error) {
       //toast.error("Invalid Entry");
@@ -132,14 +132,14 @@ export default function PvtApplicationForm() {
         <div>
           <div>
             <h1 className="my-5 p-2 border border-slate-400 text-green-600">
-              Individual Customer - Fill in all the required fields below.
+              Partnership - Fill in all the required fields below.
             </h1>
           </div>
 
           <div className="flex flex-col w-full lg:flex-row">
             <div className="grid flex-grow card rounded-box mb-3">
               <div className="flex flex-col gap-3 my-5 mx-2">
-               
+
                 <select
                   onChange={(e) => setCounterparty(e.target.value)}
                   className="select select-bordered w-[92%]"
@@ -151,7 +151,7 @@ export default function PvtApplicationForm() {
                   <option value="Supplier">Supplier</option>
                   <option value="Customer">Customer</option>
                 </select>
-                
+
               </div>
             </div>
 
@@ -279,14 +279,12 @@ export default function PvtApplicationForm() {
           </div>
 
           <div className="grid grid-cols-4 gap-3">
-
-
             <div>
               <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
-                <p>Customer ID:</p>
-                {ids && (
+                <p>Partnership Agreement:</p>
+                {certOfInc && (
                   <button
-                    onClick={() => setIds("")}
+                    onClick={() => setCertOfInc("")}
                     type="button"
                     className="flex space-x-2  bg-slate-400 rounded-md shadow text-slate-50  py-2 px-4 w-[200px]"
                   >
@@ -294,8 +292,8 @@ export default function PvtApplicationForm() {
                     <span>Change File</span>
                   </button>
                 )}
-                {ids ? (
-                  <a target="_blank" href={ids}>
+                {certOfInc ? (
+                  <a target="_blank" href={certOfInc}>
                     <FileText />
                     <span>View File</span>
                   </a>
@@ -305,7 +303,7 @@ export default function PvtApplicationForm() {
                     onClientUploadComplete={(res) => {
                       // Do something with the response
                       console.log("Files: ", res[0].url);
-                      setIds(res[0].url);
+                      setCertOfInc(res[0].url);
                       //alert("Upload Completed");
                     }}
                     onUploadError={(error) => {
@@ -315,7 +313,116 @@ export default function PvtApplicationForm() {
                   />
                 )}
               </div>
-            </div>  
+            </div>
+
+            <div>
+              <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
+                <p>Resolution:</p>
+                {cr14 && (
+                  <button
+                    onClick={() => setCr14("")}
+                    type="button"
+                    className="flex space-x-2  bg-slate-400 rounded-md shadow text-slate-50  py-2 px-4 w-[200px]"
+                  >
+                    <Pencil className="w-5 h-5" />
+                    <span>Change File</span>
+                  </button>
+                )}
+                {cr14 ? (
+                  <a target="_blank" href={cr14}>
+                    <FileText />
+                    <span>View File</span>
+                  </a>
+                ) : (
+                  <UploadButton
+                    endpoint="fileUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log("Files: ", res[0].url);
+                      setCr14(res[0].url);
+                      //alert("Upload Completed");
+                    }}
+                    onUploadError={(error) => {
+                      // Do something with the error.
+                      console.log(`ERROR! ${error.message}`);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+
+            <div>
+              <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
+                <p>IDs:</p>
+                {cr6 && (
+                  <button
+                    onClick={() => setCr6("")}
+                    type="button"
+                    className="flex space-x-2  bg-slate-400 rounded-md shadow text-slate-50  py-2 px-4 w-[200px]"
+                  >
+                    <Pencil className="w-5 h-5" />
+                    <span>Change File</span>
+                  </button>
+                )}
+                {cr6 ? (
+                  <a target="_blank" href={cr6}>
+                    <FileText />
+                    <span>View File</span>
+                  </a>
+                ) : (
+                  <UploadButton
+                    endpoint="fileUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log("Files: ", res[0].url);
+                      setCr6(res[0].url);
+                      //alert("Upload Completed");
+                    }}
+                    onUploadError={(error) => {
+                      // Do something with the error.
+                      console.log(`ERROR! ${error.message}`);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+
+
+            <div>
+              <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
+                <p>Beneficiary Ownership:</p>
+                {benOwnership && (
+                  <button
+                    onClick={() => setBenOwnership("")}
+                    type="button"
+                    className="flex space-x-2  bg-slate-400 rounded-md shadow text-slate-50  py-2 px-4 w-[200px]"
+                  >
+                    <Pencil className="w-5 h-5" />
+                    <span>Change File</span>
+                  </button>
+                )}
+                {benOwnership ? (
+                  <a target="_blank" href={benOwnership}>
+                    <FileText />
+                    <span>View File</span>
+                  </a>
+                ) : (
+                  <UploadButton
+                    endpoint="fileUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log("Files: ", res[0].url);
+                      setBenOwnership(res[0].url);
+                      //alert("Upload Completed");
+                    }}
+                    onUploadError={(error) => {
+                      // Do something with the error.
+                      console.log(`ERROR! ${error.message}`);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
 
           </div>
 

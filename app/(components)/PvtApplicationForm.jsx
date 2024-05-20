@@ -58,6 +58,7 @@ export default function PvtApplicationForm() {
       alert('Please select a counterparty type.');
       return; // Exit function if not selected
     }
+    
     if (!regName || !regAddr || !bankName) {
       //setError("All fields are required.");
       alert('All fields are required');

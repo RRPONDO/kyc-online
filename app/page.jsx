@@ -57,17 +57,17 @@ const Home = async () => {
               </Link>
             </div>
             <div className="mb-3">
-              <Link href="#" className="text-success underline font-normal">
+              <Link href="/Client/P4Application" className="text-success underline font-normal">
               Private Business Corporation
               </Link>
             </div>
             <div className="mb-3">
-              <Link href="#" className="text-success underline font-normal">
+              <Link href="/Client/P5Application" className="text-success underline font-normal">
                 Parastatal
               </Link>
             </div>
             <div className="mb-3">
-              <Link href="#" className="text-success underline font-normal">
+              <Link href="/Client/P6Application" className="text-success underline font-normal">
                 Partnership
               </Link>
             </div>

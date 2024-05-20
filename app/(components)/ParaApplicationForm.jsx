@@ -69,7 +69,7 @@ export default function PvtApplicationForm() {
       const formattedRegDate = new Date(regDate).toISOString();
       const status = "PENDING_APPROVAL";
       const email = session?.user?.email;
-      const entityType = "individual";
+      const entityType = "parastatal";
 
       const res = await fetch("../api/Application", {
         method: "POST",
@@ -132,7 +132,7 @@ export default function PvtApplicationForm() {
         <div>
           <div>
             <h1 className="my-5 p-2 border border-slate-400 text-green-600">
-              Individual Customer - Fill in all the required fields below.
+              Parastatal - Fill in all the required fields below.
             </h1>
           </div>
 
@@ -283,7 +283,7 @@ export default function PvtApplicationForm() {
 
             <div>
               <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
-                <p>Customer ID:</p>
+                <p>Enabling Statute:</p>
                 {ids && (
                   <button
                     onClick={() => setIds("")}

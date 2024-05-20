@@ -9,7 +9,7 @@ import { FileText, Pencil, Plus, SquarePlus } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-export default function PvtApplicationForm() {
+export default function PbcApplicationForm() {
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -37,7 +37,6 @@ export default function PvtApplicationForm() {
   const [swiftCode, setSwiftCode] = useState("");
   const [iban, setIban] = useState("");
   const [accBen, setAccountBeneficiary] = useState("");
-
   const [certOfInc, setCertOfInc] = useState("");
   const [cr14, setCr14] = useState("");
   const [cr6, setCr6] = useState("");
@@ -59,17 +58,18 @@ export default function PvtApplicationForm() {
       alert('Please select a counterparty type.');
       return; // Exit function if not selected
     }
-
-    if (!regName || !regAddr || !counterparty || !bankName) {
-      alert("All fields are required.");
-      return;
+    
+    if (!regName || !regAddr || !bankName) {
+      //setError("All fields are required.");
+      alert('All fields are required');
     }
+   
 
     try {
       const formattedRegDate = new Date(regDate).toISOString();
       const status = "PENDING_APPROVAL";
       const email = session?.user?.email;
-      const entityType = "individual";
+      const entityType = "private_business_corporation";
 
       const res = await fetch("../api/Application", {
         method: "POST",
@@ -115,7 +115,7 @@ export default function PvtApplicationForm() {
         //toast.success("Application successfully submitted");
         //put toast notification for successful register:
         router.refresh();
-        router.push("/ClientMember");
+        router.push("/");
       }
     } catch (error) {
       //toast.error("Invalid Entry");
@@ -132,14 +132,22 @@ export default function PvtApplicationForm() {
         <div>
           <div>
             <h1 className="my-5 p-2 border border-slate-400 text-green-600">
-              Individual Customer - Fill in all the required fields below.
+              Private Business Corporation - Fill in all the required fields below.
             </h1>
           </div>
 
           <div className="flex flex-col w-full lg:flex-row">
             <div className="grid flex-grow card rounded-box mb-3">
               <div className="flex flex-col gap-3 my-5 mx-2">
-               
+                {/* <input
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  defaultValue={session?.user?.email}
+                  readOnly
+                  placeholder="Company Email:"
+                  className="input input-bordered input-sm w-[92%]"
+                /> */}
+
                 <select
                   onChange={(e) => setCounterparty(e.target.value)}
                   className="select select-bordered w-[92%]"
@@ -151,7 +159,20 @@ export default function PvtApplicationForm() {
                   <option value="Supplier">Supplier</option>
                   <option value="Customer">Customer</option>
                 </select>
-                
+
+                {/* <select
+                  onChange={(e) => setEntity(e.target.value)}
+                  className="select select-bordered w-[92%]"
+                >
+                  <option disabled selected>
+                    Entity Type:
+                  </option>
+                  <option value="private_company">Private Ltd</option>
+                  <option value="public_company">Public Ltd</option>
+                  <option value="NGO">NGO</option>
+                  <option value="parastatal">Parastatal</option>
+                  <option value="Government">Government</option>
+                </select> */}
               </div>
             </div>
 
@@ -197,6 +218,22 @@ export default function PvtApplicationForm() {
                   placeholder="Country of Registration"
                   className="input input-bordered input-sm w-full "
                 />
+
+                {/* <select
+                  onChange={(e) => setRegCountry(e.target.value)}
+                  className="select select-bordered w-full"
+                >
+                  <option disabled selected>
+                    Country of Registration
+                  </option>
+                  <option value="Zimbabwe">Zimbabwe</option>
+                  <option value="South Africa">South Africa</option>
+                  <option value="Botswana">Botswana</option>
+                  <option value="Zambia">Zambia</option>
+                  <option value="Malawi">Malawi</option>
+                  <option value="Malawi">USA</option>
+                  <option value="UK">UK</option>
+                </select> */}
 
                 <input
                   onChange={(e) => setRegAddress(e.target.value)}
@@ -279,11 +316,46 @@ export default function PvtApplicationForm() {
           </div>
 
           <div className="grid grid-cols-4 gap-3">
+            <div>
+              <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
+                <p>Certificate of Incorporation:</p>
+                {certOfInc && (
+                  <button
+                    onClick={() => setCertOfInc("")}
+                    type="button"
+                    className="flex space-x-2  bg-slate-400 rounded-md shadow text-slate-50  py-2 px-4 w-[200px]"
+                  >
+                    <Pencil className="w-5 h-5" />
+                    <span>Change File</span>
+                  </button>
+                )}
+                {certOfInc ? (
+                  <a target="_blank" href={certOfInc}>
+                    <FileText />
+                    <span>View File</span>
+                  </a>
+                ) : (
+                  <UploadButton
+                    endpoint="fileUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log("Files: ", res[0].url);
+                      setCertOfInc(res[0].url);
+                      //alert("Upload Completed");
+                    }}
+                    onUploadError={(error) => {
+                      // Do something with the error.
+                      console.log(`ERROR! ${error.message}`);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
 
 
             <div>
               <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
-                <p>Customer ID:</p>
+                <p>IDs:</p>
                 {ids && (
                   <button
                     onClick={() => setIds("")}
@@ -295,7 +367,7 @@ export default function PvtApplicationForm() {
                   </button>
                 )}
                 {ids ? (
-                  <a target="_blank" href={ids}>
+                  <a target="_blank" href={cr6}>
                     <FileText />
                     <span>View File</span>
                   </a>
@@ -315,7 +387,44 @@ export default function PvtApplicationForm() {
                   />
                 )}
               </div>
-            </div>  
+            </div>
+
+
+            <div>
+              <div className="grid flex-grow card bg-base-300 rounded-box my-3 py-4 px-4">
+                <p>Beneficiary Ownership:</p>
+                {benOwnership && (
+                  <button
+                    onClick={() => setBenOwnership("")}
+                    type="button"
+                    className="flex space-x-2  bg-slate-400 rounded-md shadow text-slate-50  py-2 px-4 w-[200px]"
+                  >
+                    <Pencil className="w-5 h-5" />
+                    <span>Change File</span>
+                  </button>
+                )}
+                {benOwnership ? (
+                  <a target="_blank" href={benOwnership}>
+                    <FileText />
+                    <span>View File</span>
+                  </a>
+                ) : (
+                  <UploadButton
+                    endpoint="fileUploader"
+                    onClientUploadComplete={(res) => {
+                      // Do something with the response
+                      console.log("Files: ", res[0].url);
+                      setBenOwnership(res[0].url);
+                      //alert("Upload Completed");
+                    }}
+                    onUploadError={(error) => {
+                      // Do something with the error.
+                      console.log(`ERROR! ${error.message}`);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
 
           </div>
 
